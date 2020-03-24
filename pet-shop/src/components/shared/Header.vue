@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Pet<span style="color:orange">Shop</span></a>
+    <router-link to="/" class="navbar-brand">Pet<span style="color:orange">Shop</span></router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>  
@@ -35,7 +35,7 @@
       </ul>            
       <ul class="navbar-nav navbar-right">          
       <li class="nav-item">
-        <a class="nav-link" href="/auth/login"><i class="fas fa-user"></i> Profile</a>
+        <router-link to="/login" class="nav-link"><i class="fas fa-user"></i> Profile</router-link>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>

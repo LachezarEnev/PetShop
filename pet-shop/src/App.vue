@@ -1,24 +1,28 @@
 <template>
   <div id="app">
-  <div class="image">
-    <app-header />  
-    <app-home />   
-    <app-footer />  
+    <app-header /> 
+    <main>
+  <div class="image">     
+     <router-view/>
   </div>
+  </main>
+  <app-footer />  
 </div>
 </template>
 
 <script>
-import AppHome from './components/Home.vue'
+// import AppHome from './components/Home.vue'
 import AppFooter from './components/shared/Footer.vue'
 import AppHeader from './components/shared/Header.vue'
+// import AppLogin from './components/auth/Login.vue'
 
 export default {
   name: 'App',
   components: {
-    AppHome,
+    // AppHome,
     AppFooter,
-    AppHeader
+    AppHeader,
+    // AppLogin
   }
 }
 </script>
