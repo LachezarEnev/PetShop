@@ -8,14 +8,16 @@
       <label for="username">Username</label>
       <input name="username" type="text" id="username" class="form-control" placeholder="Username..." v-model="username" @blur="$v.username.$touch">
     <template v-if="$v.username.$error">
-        <div class="alert alert-danger" v-if="!$v.username.required">Username is required!</div>        
+        <div class="alert alert-danger" v-if="!$v.username.required">Username is required!</div> 
+        <div class="alert alert-danger" v-if="!$v.username.minLength">Username should be at least 3 symbols!</div>       
       </template>
     </div>      
     <div class="form-group">
       <label for="password">Password</label>
       <input name="password" type="password" id="password" class="form-control" placeholder="Password..." v-model="password" @blur="$v.password.$touch">
      <template v-if="$v.password.$error">
-        <div class="alert alert-danger" v-if="!$v.password.required">Password is required!</div>        
+        <div class="alert alert-danger" v-if="!$v.password.required">Password is required!</div> 
+        <div class="alert alert-danger" v-if="!$v.password.minLength">Password should be at least 3 symbols!</div>       
       </template>
     </div>   
     <div class="form-group">
@@ -26,7 +28,7 @@
       </template>
     </div>     
     <div class="text-center"> 
-    <button :disabled="!username || !password || !rePassword" class="btn btn-warning">Register</button>
+    <button :disabled="$v.$invalid" class="btn btn-warning">Register</button>
     </div>
   </form>
   <p class="text-center mt-3">Already Registered? <router-link to="/login"><span style="color:peru">Login</span></router-link></p>
@@ -37,7 +39,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { required, sameAs } from 'vuelidate/lib/validators';
+import { required, sameAs, minLength } from 'vuelidate/lib/validators';
 
 export default {
     mixins: [validationMixin],
@@ -50,10 +52,12 @@ data()  {
 },
 validations: {
     username: {
-      required     
+      required,
+      minLength: minLength(3)
     },
     password: {
-      required      
+      required,
+      minLength: minLength(3)     
     },
      rePassword: {
       sameAs: sameAs('password')

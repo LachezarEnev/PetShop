@@ -11,18 +11,14 @@
 </template>
 
 <script>
-// import AppHome from './components/Home.vue'
 import AppFooter from './components/shared/Footer.vue'
 import AppHeader from './components/shared/Header.vue'
-// import AppLogin from './components/auth/Login.vue'
 
 export default {
   name: 'App',
-  components: {
-    // AppHome,
+  components: {   
     AppFooter,
-    AppHeader,
-    // AppLogin
+    AppHeader    
   }
 }
 </script>

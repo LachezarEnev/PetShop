@@ -19,7 +19,7 @@
       </template>
     </div>  
     <div class="text-center"> 
-    <button :disabled="!username || !password" class="btn btn-warning">Login</button>
+    <button :disabled="$v.$invalid" class="btn btn-warning">Login</button>
     </div>
   </form>
   <p class="text-center mt-3">Don't have account yet? <router-link to="/register"><span style="color:peru">Register</span></router-link></p>

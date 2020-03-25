@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from './components/Home.vue';
 import Login from './components/auth/Login.vue'
 import Register from './components/auth/Register.vue'
+import Create from './components/pet/Create.vue'
 
 Vue.use(Router);
 
@@ -28,6 +29,13 @@ export default new Router({
         name: "Register",
         components: {         
           default: Register          
+        }
+      }, 
+      {
+        path: "/create",
+        name: "Create",
+        components: {         
+          default: Create          
         }
       },      
     ],

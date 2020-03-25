@@ -16,7 +16,7 @@
               <a class="dropdown-item" href="/pet/buy"><span style="color:orange">Buy</span></a>
               <a class="dropdown-item" href="/pet/adopt"><span style="color:orange">Adopt</span></a>              
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/pet/create"><span style="color:orange">Create</span></a>            
+              <a class="dropdown-item"><router-link to="/create"><span style="color:orange">Create</span></router-link></a>            
           </div>
           </li> 
         </div> 
