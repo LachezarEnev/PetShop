@@ -4,8 +4,8 @@
     <div class="col-md-6">
 <form @submit.prevent="createHandler">   
     <div class="text-center mb-4">
-      <h1 class="h3 mb-3 font-weight-normal mt-3">Wish new home for the lovely pet!</h1>
-      <p>Fill up the following information!</p>
+      <h1 class="h3 mb-2 font-weight-normal mt-3">Wish new home for the lovely pet!</h1>
+      <h5><span style="color:peru">Fill up the following information!</span></h5>
     </div>
     <div class="form-label-group">
         <label for="Title" class="control-label"></label>
@@ -70,7 +70,8 @@
         <label for="Image" class="control-label"></label>
         <input pattern="^https?:\/\/(.*)" type="text"  name="imageURL" id="imageURL" class="form-control" placeholder="Image (http://...)" v-model="imageURL" @blur="$v.imageURL.$touch"/>     
          <template v-if="$v.imageURL.$error">
-            <div class="alert alert-danger" v-if="!$v.imageURL.required">Image is required!</div> 
+             <div class="alert alert-danger" v-if="!$v.imageURL.urlIsValid">The URL address is invalid!</div> 
+            <div class="alert alert-danger" v-if="!$v.imageURL.required">Image URL is required!</div> 
             </template> 
     </div>    
     <div class="text-center mt-3"> 
@@ -121,7 +122,10 @@ validations: {
     },
     imageURL: {
         required,
-        // imageURL = helpers.regex('imageURL', /^https?:\/\/(.*)/)
+        urlIsValid(imageURL){
+            const regex = /^https?:\/\/(.*)/;
+            return regex.test(imageURL);
+        }        
     }
 },
 methods: {
