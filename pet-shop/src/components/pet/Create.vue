@@ -70,8 +70,8 @@
         <label for="Image" class="control-label"></label>
         <input pattern="^https?:\/\/(.*)" type="text"  name="imageURL" id="imageURL" class="form-control" placeholder="Image (http://...)" v-model="imageURL" @blur="$v.imageURL.$touch"/>     
          <template v-if="$v.imageURL.$error">
-             <div class="alert alert-danger" v-if="!$v.imageURL.urlIsValid">The URL address is invalid!</div> 
-            <div class="alert alert-danger" v-if="!$v.imageURL.required">Image URL is required!</div> 
+             <div class="alert alert-danger" v-if="!$v.imageURL.required">Image URL is required!</div> 
+             <div class="alert alert-danger" v-else-if="!$v.imageURL.urlIsValid">The URL address is invalid!</div>          
             </template> 
     </div>    
     <div class="text-center mt-3"> 

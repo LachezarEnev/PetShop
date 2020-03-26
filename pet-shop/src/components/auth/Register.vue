@@ -3,13 +3,13 @@
 <div class="row justify-content-center">
 <div class="col-md-4">
   <h1 class="text-italic text-center mt-5">Register</h1>
-  <form @submit.prevent="registerHandler">
+  <form @submit.prevent="registerHandler">   
     <div class="form-group">
-      <label for="username">Username</label>
-      <input name="username" type="text" id="username" class="form-control" placeholder="Username..." v-model="username" @blur="$v.username.$touch">
+      <label for="username"></label>
+      <input name="username" type="text" id="username" class="form-control" placeholder="Username..." v-model="username" @blur="$v.username.$touch" >
     <template v-if="$v.username.$error">
         <div class="alert alert-danger" v-if="!$v.username.required">Username is required!</div> 
-        <div class="alert alert-danger" v-if="!$v.username.minLength">Username should be at least 3 symbols!</div>       
+        <div class="alert alert-danger" v-else-if="!$v.username.minLength">Username should be at least 3 symbols!</div>       
       </template>
     </div>      
     <div class="form-group">
@@ -17,7 +17,7 @@
       <input name="password" type="password" id="password" class="form-control" placeholder="Password..." v-model="password" @blur="$v.password.$touch">
      <template v-if="$v.password.$error">
         <div class="alert alert-danger" v-if="!$v.password.required">Password is required!</div> 
-        <div class="alert alert-danger" v-if="!$v.password.minLength">Password should be at least 3 symbols!</div>       
+        <div class="alert alert-danger" v-else-if="!$v.password.minLength">Password should be at least 3 symbols!</div>       
       </template>
     </div>   
     <div class="form-group">

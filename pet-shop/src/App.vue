@@ -66,5 +66,5 @@ export default {
 .image-container {
     width: auto;
     height: 180px;
-} 
+}
 </style>
