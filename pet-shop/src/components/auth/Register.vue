@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
 <div class="col-md-4">
   <h1 class="text-italic text-center mt-5">Register</h1>
-  <form @submit.prevent="registerHandler">   
+  <form @submit.prevent="registerHandler" ref="registerForm">   
     <div class="form-group">
       <label for="username"></label>
       <input name="username" type="text" id="username" class="form-control" placeholder="Username..." v-model="username" @blur="$v.username.$touch" >
@@ -40,11 +40,14 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, sameAs, minLength } from 'vuelidate/lib/validators';
+import { registerSuccess } from '../auth/store/auth-state.js';
+import { mapActions } from 'vuex';
 
 export default {
     mixins: [validationMixin],
 data()  {
     return {
+      loading: false,
       username: '',
       password: '',
       rePassword: '',
@@ -63,11 +66,21 @@ validations: {
       sameAs: sameAs('password')
     },
 },
-methods: {
-    registerHandler() {
-
+methods: {  
+  ...mapActions([registerSuccess]),
+    async registerHandler() {       
+      this.loading = true;
+        await this[registerSuccess]({
+          username: this.username,
+          password: this.password,         
+        });
+        this.loading = false;
+        this.$router.push('/login');
+    },
+    reset() {
+      this.$refs.registerForm.reset();
     }
-}
+  } 
 }
 </script>
 

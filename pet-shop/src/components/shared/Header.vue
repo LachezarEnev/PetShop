@@ -7,7 +7,7 @@
     
     <div class="collapse navbar-collapse" id="navbarColor01">      
       <ul class="navbar-nav mr-auto navbar-left"> 
-        <div>        
+        <div v-if="isAuth">        
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-paw"></i>
               Pets
@@ -37,7 +37,7 @@
       <li class="nav-item">
         <router-link to="/login" class="nav-link"><i class="fas fa-user"></i> Profile</router-link>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" v-if="isAuth">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
           Hello, !
         </a>
@@ -45,8 +45,8 @@
           <a class="dropdown-item" href="/pet/my-pets" style="color: orange;"><i class="fas fa-paw"></i> My Pets</a>                             
       </div>
       </li> 
-      <li class="nav-item">
-        <a class="nav-link"><i class="fas fa-sign-out-alt"></i> Exit</a>
+      <li class="nav-item" v-if="isAuth">
+        <a class="nav-link" @click="logout"><i class="fas fa-sign-out-alt"></i> Exit</a>
       </li> 
     </ul>   
     </div>    
@@ -54,8 +54,22 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import { logoutSuccess } from '../auth/store/auth-state.js';
+
 export default {
+  computed: {
+    ...mapGetters(['isAuth'])    
+  }, 
+  methods: {
+    ...mapActions([logoutSuccess]),
+    logout() {      
+      this[logoutSuccess]();
+      this.$router.push('/login');
+    },
+  }
 }
+ 
 </script>
 
 <style scoped>
