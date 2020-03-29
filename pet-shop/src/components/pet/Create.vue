@@ -86,6 +86,8 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, minValue } from 'vuelidate/lib/validators';
+import { http } from '../../services/httpClient';
+import { toastSuccess } from '../../services/toasted';
 
 export default {
     mixins: [validationMixin],
@@ -98,7 +100,7 @@ data()  {
       phone: '',
       category: '',
       option: '',
-      imageURL: '',
+      imageURL: '',     
     };
 },
 validations: {
@@ -130,7 +132,29 @@ validations: {
 },
 methods: {
     createHandler() {
-
+        let username = localStorage.getItem('username');       
+        let likes = 0;
+        if (!this.price || this.price< 0) {
+        this.price = 0;    
+        }
+        
+        let body = { 
+        title: this.title, 
+        address: this.address, 
+        description: this.description, 
+        price: this.price, 
+        phone: this.phone, 
+        category: this.category, 
+        option: this.option, 
+        imageURL: this.imageURL, 
+        username, 
+        likes}
+  
+        http.post('pets', body)        
+        .then (() => {
+            toastSuccess('Pet created successfully!')
+            this.$router.push('/')
+        });                  
     }
 }
 }

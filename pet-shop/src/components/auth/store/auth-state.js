@@ -3,8 +3,7 @@ import { http } from '../../../services/httpClient';
 
 const initialState = {
   isAuth: localStorage.getItem('authtoken') !== null,
-  authtoken: localStorage.getItem('authtoken'),  
-  userInfo: null
+  authtoken: localStorage.getItem('authtoken') 
 };
 
 export const actionTypes = {
@@ -17,21 +16,22 @@ export const { loginSuccess, logoutSuccess, registerSuccess } = actionTypes;
 
 const getters = {
   authtoken: state => state.authtoken,
-  isAuth: state => state.isAuth   
+  isAuth: state => state.isAuth 
 };
 
-const actions = {
-  async [loginSuccess]({ commit }, payload) {
+const actions = {  
+  async [loginSuccess]({ commit }, payload) {      
     const { username, password } = payload;
-    const { data } = await http.post('login', { username, password });    
+    const { data } = await http.post('login', { username, password });       
     localStorage.setItem('authtoken', data._kmd.authtoken);
-    localStorage.setItem('username', data.username);    
-    toastSuccess('Successfully Logged!');
+    localStorage.setItem('userInfo', JSON.stringify(data)); 
+    localStorage.setItem('username', data.username) 
+    toastSuccess('Successfully Logged!');      
     commit(loginSuccess, {
       userInfo: data,
-      authtoken: data._kmd.authtoken,
+      authtoken: data._kmd.authtoken,      
       isAuth: true      
-    });
+    });    
   },
   async [logoutSuccess]({ commit }) {
     localStorage.clear();

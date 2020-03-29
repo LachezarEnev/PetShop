@@ -34,12 +34,12 @@
       </div>  -->
       </ul>            
       <ul class="navbar-nav navbar-right">          
-      <li class="nav-item">
+      <li v-if="!isAuth" class="nav-item">
         <router-link to="/login" class="nav-link"><i class="fas fa-user"></i> Profile</router-link>
       </li>
       <li class="nav-item dropdown" v-if="isAuth">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
-          Hello, !
+          Hello, {{username | capitalize }}!
         </a>
         <div class="dropdown-menu bg-dark dropdown:hover>.dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/pet/my-pets" style="color: orange;"><i class="fas fa-paw"></i> My Pets</a>                             
@@ -58,18 +58,30 @@ import { mapGetters, mapActions } from 'vuex';
 import { logoutSuccess } from '../auth/store/auth-state.js';
 
 export default {
+  data()  {
+    return {      
+      username: localStorage.getItem('username'),       
+    };
+},
   computed: {
-    ...mapGetters(['isAuth'])    
+    ...mapGetters(['isAuth'])      
   }, 
-  methods: {
+  methods: {       
     ...mapActions([logoutSuccess]),
     logout() {      
       this[logoutSuccess]();
       this.$router.push('/login');
     },
+  },
+  filters: {
+  capitalize: function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
   }
 }
- 
+}
+
 </script>
 
 <style scoped>

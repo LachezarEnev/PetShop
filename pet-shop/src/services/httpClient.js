@@ -60,7 +60,7 @@ const errorInterceptor = function(error) {
   } else if (error.response.status === 500) {
     toastError(`${error.response.statusText}: Server Error`);    
   } else {
-    toastError(`${error.response.statusText}`);    
+    toastError(`${error.response.statusText}: ${error.response.data.description}`);    
   }
 
   return Promise.reject(error);
