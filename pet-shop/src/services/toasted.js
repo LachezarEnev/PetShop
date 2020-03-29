@@ -19,15 +19,14 @@ export const toastSuccess = msg => {
 };
 
 export const toastError = msg => {
-    return Vue.toasted.error(msg, {
-      icon: 'error_outline',
+    return Vue.toasted.error(msg, {      
       action: {
         text: 'Cancel',
         onClick: (e, toastObject) => {
           toastObject.goAway(0);
         }
       },
-      duration: 3000,
+      duration: 5000,
       position: 'top-center',
       theme: 'bubble',
       className: 'toast'

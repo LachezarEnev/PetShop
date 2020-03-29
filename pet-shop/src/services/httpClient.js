@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { cacheAdapterEnhancer } from 'axios-extensions';
 
-import { toastError } from '../../shared/services/toasted';
+import { toastError } from './toasted';
 
 const baseUrl = 'https://baas.kinvey.com';
 const appKey = 'kid_By8WcY8IL';
