@@ -34,7 +34,7 @@
                 <div class="card-footer d-flex justify-content-around text-center bg-white"> 
                     <div class="d-flex justify-content-between">           
                     <div class="mr-2">
-                        <button routerLink="/pet/details/pet._id" class="text-warning">Details</button>  
+                        <button><router-link :to="{ name: 'details', params: { id: pet._id } }" style="color: peru">Details</router-link></button>  
                     </div>                     
                     <div v-if="isPublisher(pet.username)">
                         <button disabled class="text-danger pl-3 pr-3" @click="like(pet._id)"> {{pet.likes}} <i class="fas fa-heart"></i></button> 
@@ -114,5 +114,5 @@ data()  {
     width: 100%;
     position: static;
     margin: 0 auto;
-  }
+  }  
 </style>

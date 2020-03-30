@@ -7,6 +7,8 @@ import Register from './components/auth/Register.vue';
 import Create from './components/pet/Create.vue';
 import Buy from './components/pet/Buy.vue';
 import Adopt from './components/pet/Adopt.vue';
+import Details from './components/pet/Details.vue';
+import Edit from './components/pet/Edit.vue';
 
 const routes = [
   {
@@ -32,6 +34,16 @@ const routes = [
   {
     path: "/adopt", 
     component: Adopt
+  },
+  {
+    path: "/details/:id", 
+    name: 'details', 
+    component: Details
+  },
+  {
+    path: "/edit/:id",
+    name: 'edit', 
+    component: Edit
   },
 ]
 
