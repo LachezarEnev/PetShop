@@ -100,7 +100,7 @@ data()  {
       phone: '',
       category: '',
       option: '',
-      imageURL: '',     
+      imageURL: '',      
     };
 },
 validations: {
@@ -154,9 +154,10 @@ methods: {
         .then (() => {
             toastSuccess('Pet created successfully!')
             this.$router.push('/')
-        });                  
-    }
+        });       
+    }    
 }
+
 }
 </script>
 

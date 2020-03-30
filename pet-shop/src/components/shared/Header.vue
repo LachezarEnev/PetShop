@@ -13,8 +13,8 @@
               Pets
             </a>
             <div class="dropdown-menu bg-dark dropdown:hover>.dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/pet/buy"><span style="color:orange">Buy</span></a>
-              <a class="dropdown-item" href="/pet/adopt"><span style="color:orange">Adopt</span></a>              
+              <a class="dropdown-item"><router-link to="/buy"><span style="color:orange">Buy</span></router-link></a> 
+              <a class="dropdown-item"><router-link to="/adopt"><span style="color:orange">Adopt</span></router-link></a>             
               <div class="dropdown-divider"></div>
               <a class="dropdown-item"><router-link to="/create"><span style="color:orange">Create</span></router-link></a>            
           </div>

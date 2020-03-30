@@ -11,8 +11,8 @@
                 <li><a class="nav-link" style="color: peru;" @click="category('other')"><i class="fas fa-paw"></i> Other</a></li>
             </ul>
         </div>
-    </nav>
-<div v-if="allPets">
+    </nav>    
+<div v-if="allPets" >
 <div class="container">    
     <div class="row">    
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
@@ -51,7 +51,7 @@
         </div>
     </div>    
   </div> 
-  </div>  
+  </div> 
  </div>
 <div v-if="!isAuth" class="d-md-flex flex-md-equal">
         <div style="padding-left:7%; padding-top:3%;" class="col-md-6 mt-3">
@@ -75,14 +75,14 @@ import { http } from '../services/httpClient';
 export default {
 data()  {
     return {
-      allPets: {},          
+      allPets: {},                      
     };
 },
  computed: {
     ...mapGetters(['isAuth'])      
   },
   created() {    
-      http.get('pets').then((data) => {
+      http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
       this.allPets = data.data      
       })     
   },
@@ -91,8 +91,18 @@ data()  {
       if(username === localStorage.getItem('username')){
         return true;
       }
+    },    
+     like(id){         
+         http.get(`pets/${id}`)
+         .then((pet) => {
+            if(pet.data.username !== localStorage.getItem("username")){
+            pet.data.likes++;            
+            } 
+            http.put(`pets/${id}`, pet.data)
+            .then()            
+        })  
+        }
     }
-  }
 }
 </script>
 

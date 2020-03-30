@@ -3,7 +3,7 @@
     <app-header /> 
     <main>
   <div class="image">     
-     <router-view/>
+     <router-view></router-view>
   </div>
   </main>
   <app-footer />  
