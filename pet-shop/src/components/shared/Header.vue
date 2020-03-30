@@ -42,7 +42,7 @@
           Hello, {{username | capitalize }}!
         </a>
         <div class="dropdown-menu bg-dark dropdown:hover>.dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/pet/my-pets" style="color: orange;"><i class="fas fa-paw"></i> My Pets</a>                             
+          <a class="dropdown-item"><router-link to="/my" style="color: peru"><i class="fas fa-paw" style="color: peru"></i> My Pets</router-link></a>                            
       </div>
       </li> 
       <li class="nav-item" v-if="isAuth">

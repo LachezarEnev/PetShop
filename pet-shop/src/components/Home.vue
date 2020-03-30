@@ -18,7 +18,7 @@
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
             <div class="card h-100 mt-2">
                 <div class="card-img-top image-container center-block zoom">
-                    <img :src="pet.imageURL" routerLink="/pet/details/pet._id">
+                    <router-link tag="img" :to="{ name: 'details', params: { id: pet._id } }" :src="pet.imageURL"></router-link>
                 </div>
                 <div class="card-body text-center h-25 pb-0 pt-0 pl-0 pr-0">                    
                     <h5 class="card-title font-weight-bold" style="color:grey"><i>{{pet.title}}</i></h5>                    
@@ -102,6 +102,10 @@ data()  {
             .then()            
         })  
         }
+    },
+    petDetails(petId){
+        // this.$router.push({ name: 'details', params: { id: petId} })
+        console.log(petId)
     }
 }
 </script>

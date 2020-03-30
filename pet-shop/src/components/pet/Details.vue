@@ -67,7 +67,7 @@ methods: {
       http.delete(`pets/${this.petId}`)
       .then (() => {
             toastSuccess('Pet deleted successfully!')
-            this.$router.push('/')
+            this.$router.push('/my')
         });
         }
     }

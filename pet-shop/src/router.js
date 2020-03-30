@@ -9,6 +9,7 @@ import Buy from './components/pet/Buy.vue';
 import Adopt from './components/pet/Adopt.vue';
 import Details from './components/pet/Details.vue';
 import Edit from './components/pet/Edit.vue';
+import My from './components/pet/My.vue';
 
 const routes = [
   {
@@ -44,6 +45,10 @@ const routes = [
     path: "/edit/:id",
     name: 'edit', 
     component: Edit
+  },
+  {
+    path: "/my", 
+    component: My
   },
 ]
 
