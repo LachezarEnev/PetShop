@@ -53,8 +53,7 @@ export default {
  created() {    
       http.get(`pets/${this.petId}`).then((data) => {
       this.pet = data.data       
-      })
-      console.log(this.petId)       
+      })           
   },
 methods: {
     isPublisher(username) {

@@ -92,6 +92,8 @@ export default {
     mixins: [validationMixin],
 data()  {
     return {
+      pet: {},
+      petId: this.$route.params.id,     
       title: '',
       address: '',
       description: '',
@@ -129,8 +131,21 @@ validations: {
         }        
     }
 },
+ created() {    
+      http.get(`pets/${this.petId}`).then((data) => {
+      this.pet = data.data 
+      this.title = this.pet.title,
+      this.address = this.pet.address,
+      this.description = this.pet.description,
+      this.price = this.pet.price,
+      this.phone = this.pet.phone,
+      this.category = this.pet.category,
+      this.option = this.pet.option,
+      this.imageURL = this.pet.imageURL            
+      })                  
+  },
 methods: {
-    createHandler() {
+    editHandler() {
         let username = localStorage.getItem('username');       
         let likes = 0;
         if (!this.price || this.price< 0) {
@@ -148,11 +163,11 @@ methods: {
         imageURL: this.imageURL, 
         username, 
         likes}
-  
-        http.put('pets', body)        
+        
+        http.put(`pets/${this.petId}`, body)        
         .then (() => {
             toastSuccess('Pet edited successfully!')
-            this.$router.push('/')
+            this.$router.push({ name: 'details', params: { id: this.petId } })           
         });       
     }    
 }
