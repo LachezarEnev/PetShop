@@ -42,6 +42,7 @@
 
 <script>
 import { http } from '../../services/httpClient';
+import { toastSuccess } from '../../services/toasted';
 
 export default {
     data()  {
@@ -61,8 +62,14 @@ methods: {
         return true;
       }
     },   
-    deletePet(){
-
+    deletePet(id, title){
+        if (confirm("Are you sure you want to delete "+title)) {
+      http.delete(`pets/${this.petId}`)
+      .then (() => {
+            toastSuccess('Pet deleted successfully!')
+            this.$router.push('/')
+        });
+        }
     }
 },
 }
