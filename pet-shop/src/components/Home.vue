@@ -86,6 +86,11 @@ data()  {
       this.allPets = data.data      
       })     
   },
+  updated() {
+      http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
+      this.allPets = data.data      
+      })
+  },
   methods: {
     isPublisher(username) {
       if(username === localStorage.getItem('username')){
@@ -96,17 +101,12 @@ data()  {
          http.get(`pets/${id}`)
          .then((pet) => {
             if(pet.data.username !== localStorage.getItem("username")){
-            pet.data.likes++;            
+            pet.data.likes++;                    
             } 
-            http.put(`pets/${id}`, pet.data)
-            .then()            
-        })  
-        }
-    },
-    petDetails(petId){
-        // this.$router.push({ name: 'details', params: { id: petId} })
-        console.log(petId)
-    }
+            http.put(`pets/${id}`, pet.data)                                                     
+        })          
+        }                    
+    }  
 }
 </script>
 

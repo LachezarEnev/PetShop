@@ -39,9 +39,9 @@
                         <div>
                             <button class="myButton-orange"><router-link :to="{ name: 'edit', params: { id: pet._id } }" style="color: white"><i class="fas fa-edit"></i>Edit</router-link></button>
                         </div>                     
-                        <!-- <div>
-                            <button class="nav-link text-danger button" @click="deletePet(pet._id, pet.title)">Delete</button> 
-                        </div> -->
+                        <div>
+                            <button class="myButton-red" @click="deletePet(pet._id, pet.title)">Delete</button> 
+                        </div>
                     </td>
                 </tr>
             </div>
@@ -54,7 +54,7 @@
 
 <script>
 import { http } from '../../services/httpClient';
-// import { toastSuccess } from '../../services/toasted';
+import { toastSuccess } from '../../services/toasted';
 
 export default {
     data()  {
@@ -68,70 +68,24 @@ export default {
       this.myPets = data.data      
       })     
   },
-//   methods: {
-//        deletePet(id, title){
-//         if (confirm("Are you sure you want to delete "+title)) {
-//       http.delete(`pets/${id}`)
-//       .then (() => {
-//             toastSuccess('Pet deleted successfully!')
-//             this.$router.push('/my')
-//         });
-//         }
-//     }
-//   }
+  updated() {
+      http.get(`pets/?query={"username": "${this.username}"}&sort={"likes": -1}`).then((data) => {
+      this.myPets = data.data      
+      })  
+  },
+  methods: {
+       deletePet(id, title){
+        if (confirm("Are you sure you want to delete "+title)) {
+      http.delete(`pets/${id}`)
+      .then (() => {
+            toastSuccess('Pet deleted successfully!')
+            this.$router.push('/my')
+        });
+        }
+    }
+  }
 }
 </script>
 
 <style scoped>
-.myButton-olive {
-    -moz-box-shadow: inset 0px 0px 14px -3px #f2fadc;
-    -webkit-box-shadow: inset 0px 0px 14px -3px #f2fadc;
-    box-shadow: inset 0px 0px 14px -3px #f2fadc;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dbe6c4), color-stop(1, #9ba892));
-    background: -moz-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
-    background: -webkit-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
-    background: -o-linear-gradient(top, #dbe6c4 5%, #9ba892 100%);
-    background: linear-gradient(to bottom, #dbe6c4 5%, #9ba892 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dbe6c4', endColorstr='#9ba892',GradientType=0);
-    background-color: #dbe6c4;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    border: 1px solid #b2b8ad;
-    display: inline-block;
-    cursor: pointer;
-    color: #757d6f;
-    font-family: Arial;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 6px 24px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #ced9bf;
-}
-
-.myButton-orange {
-    -moz-box-shadow: inset 0px 1px 0px 0px #fce2c1;
-    -webkit-box-shadow: inset 0px 1px 0px 0px #fce2c1;
-    box-shadow: inset 0px 1px 0px 0px #fce2c1;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25));
-    background: -moz-linear-gradient(top, #ffc477 5%, #fb9e25 100%);
-    background: -webkit-linear-gradient(top, #ffc477 5%, #fb9e25 100%);
-    background: -o-linear-gradient(top, #ffc477 5%, #fb9e25 100%);
-    background: linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25',GradientType=0);
-    background-color: #ffc477;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    border: 1px solid #eeb44f;
-    display: inline-block;
-    cursor: pointer;
-    color: #ffffff;
-    font-family: Arial;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 6px 24px;
-    text-decoration: none;
-    text-shadow: 0px 1px 0px #cc9f52;
-}
 </style>

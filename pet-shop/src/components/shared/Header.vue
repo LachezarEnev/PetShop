@@ -66,6 +66,9 @@ export default {
   computed: {
     ...mapGetters(['isAuth'])      
   }, 
+  updated(){
+    this.username = localStorage.getItem('username')
+  },
   methods: {       
     ...mapActions([logoutSuccess]),
     logout() {      

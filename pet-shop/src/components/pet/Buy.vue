@@ -55,13 +55,28 @@ data()  {
       this.allPets = data.data      
       })     
   },
+  updated() {
+      http.get('pets/?query={"option":"sale"}&sort={"likes": -1}').then((data) => {
+      this.allPets = data.data      
+      })  
+  },
   methods: {
     isPublisher(username) {
       if(username === localStorage.getItem('username')){
         return true;
       }
-    }
+    },
+    like(id){         
+         http.get(`pets/${id}`)
+         .then((pet) => {
+            if(pet.data.username !== localStorage.getItem("username")){
+            pet.data.likes++;                    
+            } 
+            http.put(`pets/${id}`, pet.data)                                                     
+        })          
+    }  
   }
+  
 }
 </script>
 

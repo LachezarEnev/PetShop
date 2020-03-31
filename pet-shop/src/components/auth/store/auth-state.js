@@ -23,9 +23,8 @@ const actions = {
   async [loginSuccess]({ commit }, payload) {      
     const { username, password } = payload;
     const { data } = await http.post('login', { username, password });       
-    localStorage.setItem('authtoken', data._kmd.authtoken);
-    localStorage.setItem('userInfo', JSON.stringify(data)); 
-    localStorage.setItem('username', data.username) 
+    localStorage.setItem('authtoken', data._kmd.authtoken);    
+    localStorage.setItem('username', data.username); 
     toastSuccess('Successfully Logged!');      
     commit(loginSuccess, {
       userInfo: data,

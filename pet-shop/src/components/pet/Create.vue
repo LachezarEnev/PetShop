@@ -153,7 +153,7 @@ methods: {
         http.post('pets', body)        
         .then (() => {
             toastSuccess('Pet created successfully!')
-            this.$router.push('/')
+            this.$router.push('/my')
         });       
     }    
 }
