@@ -1,4 +1,4 @@
-<template>
+<template> 
 <div>
 <div v-if="isAuth">   
     <nav class="navbar navbar-expand-lg bg-transparent">
@@ -72,10 +72,11 @@
 import { mapGetters } from 'vuex';
 import { http } from '../services/httpClient';
 
-export default {
+export default {    
 data()  {
     return {
-      allPets: {},                      
+      allPets: {},
+                                       
     };
 },
  computed: {
@@ -83,30 +84,35 @@ data()  {
   },
   created() {    
       http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data      
-      })     
+      this.allPets = data.data                 
+      })           
   },
-  updated() {
-      http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data      
-      })
-  },
+  watch: {
+      allPets: function() {         
+        }        
+    }, 
   methods: {
     isPublisher(username) {
       if(username === localStorage.getItem('username')){
         return true;
       }
     },    
-     like(id){         
+     like(id){               
          http.get(`pets/${id}`)
          .then((pet) => {
-            if(pet.data.username !== localStorage.getItem("username")){
-            pet.data.likes++;                    
+            if(pet.data.username !== localStorage.getItem("username")){           
+            pet.data.likes++; 
+                                                                                            
             } 
-            http.put(`pets/${id}`, pet.data)                                                     
+            http.put(`pets/${id}`, pet.data)
+            .then(() => {
+                http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
+                this.allPets = data.data                 
+                })  
+            })                                                                                 
         })          
-        }                    
-    }  
+    }                     
+},  
 }
 </script>
 

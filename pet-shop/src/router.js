@@ -10,6 +10,7 @@ import Adopt from './components/pet/Adopt.vue';
 import Details from './components/pet/Details.vue';
 import Edit from './components/pet/Edit.vue';
 import My from './components/pet/My.vue';
+import Search from './components/pet/Search.vue';
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
   {
     path: "/my", 
     component: My
+  },
+  {
+    path: "/search",
+    name: 'search', 
+    component: Search
   },
 ]
 

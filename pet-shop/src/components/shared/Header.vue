@@ -20,18 +20,18 @@
           </div>
           </li> 
         </div> 
-        <!-- <div *ngIf='isLoggedIn' class="ml-3">
-          <form #searchForm="ngForm" (ngSubmit)="search()">
+        <div v-if='isAuth' class="ml-3">
+          <form @submit.prevent="searchHandler">
               <div class="row">
-                  <div class="col-7">
-                  <input ngModel class="form-control" type="text" name="search" placeholder="Search a pet..." aria-label="Search" required>
+                <div class="col-7">
+                  <input class="form-control" type="text" name="search" placeholder="Search a pet..." aria-label="Search" v-model="search" @blur="$v.search.$touch">
               </div>
               <div class="col-5">
-                  <button [disabled]="searchForm.invalid" class="btn btn-default" type="submit"><span style="color: orange;"><i class="fas fa-search"></i> Search</span></button>
+                  <button :disabled="$v.$invalid" class="btn btn-default" type="submit"><span style="color: orange;"><i class="fas fa-search"></i> Search</span></button>
               </div>
               </div>          
           </form>
-      </div>  -->
+      </div> 
       </ul>            
       <ul class="navbar-nav navbar-right">          
       <li v-if="!isAuth" class="nav-item">
@@ -54,20 +54,29 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
 import { mapGetters, mapActions } from 'vuex';
 import { logoutSuccess } from '../auth/store/auth-state.js';
 
 export default {
+  mixins: [validationMixin],
   data()  {
     return {      
-      username: localStorage.getItem('username'),       
+      username: localStorage.getItem('username'),  
+      search: '',     
     };
+},
+validations: {
+  search: {
+      required     
+    }
 },
   computed: {
     ...mapGetters(['isAuth'])      
   }, 
   updated(){
-    this.username = localStorage.getItem('username')
+    this.username = localStorage.getItem('username')   
   },
   methods: {       
     ...mapActions([logoutSuccess]),
@@ -75,6 +84,9 @@ export default {
       this[logoutSuccess]();
       this.$router.push('/login');
     },
+    searchHandler(){         
+      this.$router.push({name: 'search', params: { search: this.search }})
+    }
   },
   filters: {
   capitalize: function (value) {

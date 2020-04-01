@@ -101,7 +101,8 @@ data()  {
       phone: '',
       category: '',
       option: '',
-      imageURL: '',      
+      imageURL: '', 
+      likes: '',    
     };
 },
 validations: {
@@ -141,13 +142,13 @@ validations: {
       this.phone = this.pet.phone,
       this.category = this.pet.category,
       this.option = this.pet.option,
-      this.imageURL = this.pet.imageURL            
+      this.imageURL = this.pet.imageURL
+      this.likes = this.pet.likes            
       })                  
   },
 methods: {
     editHandler() {
-        let username = localStorage.getItem('username');       
-        let likes = 0;
+        let username = localStorage.getItem('username');                
         if (!this.price || this.price< 0) {
         this.price = 0;    
         }
@@ -160,9 +161,10 @@ methods: {
         phone: this.phone, 
         category: this.category, 
         option: this.option, 
-        imageURL: this.imageURL, 
-        username, 
-        likes}
+        imageURL: this.imageURL,
+        likes: this.likes, 
+        username,       
+        }
         
         http.put(`pets/${this.petId}`, body)        
         .then (() => {

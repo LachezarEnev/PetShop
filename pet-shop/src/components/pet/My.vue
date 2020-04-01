@@ -68,18 +68,19 @@ export default {
       this.myPets = data.data      
       })     
   },
-  updated() {
-      http.get(`pets/?query={"username": "${this.username}"}&sort={"likes": -1}`).then((data) => {
-      this.myPets = data.data      
-      })  
+  watch: {
+      myPets: function() {  
+   }      
   },
   methods: {
        deletePet(id, title){
         if (confirm("Are you sure you want to delete "+title)) {
       http.delete(`pets/${id}`)
       .then (() => {
-            toastSuccess('Pet deleted successfully!')
-            this.$router.push('/my')
+            toastSuccess('Pet deleted successfully!')            
+            http.get(`pets/?query={"username": "${this.username}"}&sort={"likes": -1}`).then((data) => {
+            this.myPets = data.data      
+            }) 
         });
         }
     }

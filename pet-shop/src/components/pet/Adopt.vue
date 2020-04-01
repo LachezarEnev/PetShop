@@ -55,11 +55,10 @@ data()  {
       this.allPets = data.data      
       })     
   },
-  updated() {
-      http.get('pets/?query={"option":"adoption"}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data      
-      })  
-  },
+  watch: {
+      allPets: function() {         
+        }        
+    }, 
   methods: {
     isPublisher(username) {
       if(username === localStorage.getItem('username')){
@@ -72,7 +71,12 @@ data()  {
             if(pet.data.username !== localStorage.getItem("username")){
             pet.data.likes++;                    
             } 
-            http.put(`pets/${id}`, pet.data)                                                     
+            http.put(`pets/${id}`, pet.data)
+            .then(() => {
+                http.get('pets/?query={"option":"adoption"}&sort={"likes": -1}').then((data) => {
+                this.allPets = data.data                   
+                })  
+            })                                                       
         })          
     } 
   }
