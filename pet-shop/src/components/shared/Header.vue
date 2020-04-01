@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link to="/" class="navbar-brand">Pet<span style="color:orange">Shop</span></router-link>
+    <router-link to="/" class="navbar-brand">Pet<span style="color:peru">Shop</span></router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>  
@@ -13,10 +13,10 @@
               Pets
             </a>
             <div class="dropdown-menu bg-dark dropdown:hover>.dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item"><router-link to="/buy"><span style="color:orange">Buy</span></router-link></a> 
-              <a class="dropdown-item"><router-link to="/adopt"><span style="color:orange">Adopt</span></router-link></a>             
+              <a class="dropdown-item"><router-link to="/buy" style="color:peru"><span>Buy</span></router-link></a> 
+              <a class="dropdown-item"><router-link to="/adopt" style="color:peru"><span>Adopt</span></router-link></a>             
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item"><router-link to="/create"><span style="color:orange">Create</span></router-link></a>            
+              <a class="dropdown-item"><router-link to="/create" style="color:peru"><span>Create</span></router-link></a>            
           </div>
           </li> 
         </div> 
@@ -27,7 +27,7 @@
                   <input class="form-control" type="text" name="search" placeholder="Search a pet..." aria-label="Search" v-model="search" @blur="$v.search.$touch">
               </div>
               <div class="col-5">
-                  <button :disabled="$v.$invalid" class="btn btn-default" type="submit"><span style="color: orange;"><i class="fas fa-search"></i> Search</span></button>
+                  <button :disabled="$v.$invalid" class="btn btn-default" type="submit"><span style="color: peru;"><i class="fas fa-search"></i> Search</span></button>
               </div>
               </div>          
           </form>

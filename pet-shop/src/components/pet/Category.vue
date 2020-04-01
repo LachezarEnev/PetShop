@@ -67,7 +67,7 @@ data()  {
 },
 created() {    
       http.get(`pets/?query={"category": "${this.category}"}&sort={"likes": -1}`).then((data) => {
-      this.allPets = data.data                 
+      this.allPets = data.data                    
       })           
   },
   watch: {
@@ -83,8 +83,7 @@ created() {
     getCategory(input) {
         http.get(`pets/?query={"category": "${input}"}&sort={"likes": -1}`).then((data) => {
         this.allPets = data.data 
-        this.category = input; 
-        console.log(this.category)               
+        this.category = input;                      
       })
     },
       like(id){               
@@ -108,4 +107,13 @@ created() {
 </script>
 
 <style scoped>
+button{
+    border-radius: 6px;
+    border: 1px solid #b2b8ad;   
+    outline: none; 
+  } 
+
+  button:active {    
+    border: none;
+  }
 </style>

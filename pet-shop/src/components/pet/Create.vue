@@ -28,7 +28,7 @@
     <div class="d-flex justify-content-between">
         <div class="form-group w-45">            
             <label for="Price" class="control-label"></label>            
-            <input type="number" for="Price" name="price" id="price" class="form-control" placeholder="Price..." v-model="price" @blur="$v.price.$touch">            
+            <input type="decimal" for="Price" name="price" id="price" class="form-control" placeholder="Price..." v-model="price" @blur="$v.price.$touch">            
             <div class="alert alert-danger" v-if="!$v.price.minValue">Price can't be less than 0!</div> 
         </div>        
         <div class="form-group w-45">
@@ -110,7 +110,7 @@ validations: {
     address: {
       required         
     },
-     price: {
+     price: {      
       minValue: minValue(0)
     },
     phone: {

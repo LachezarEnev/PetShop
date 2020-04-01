@@ -94,4 +94,13 @@ export default {
 </script>
 
 <style scoped>
+button{
+    border-radius: 6px;
+    border: 1px solid #b2b8ad;   
+    outline: none; 
+  } 
+
+  button:active {    
+    border: none;
+  }
 </style>

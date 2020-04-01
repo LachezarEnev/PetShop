@@ -126,5 +126,15 @@ data()  {
     width: 100%;
     position: static;
     margin: 0 auto;
-  }  
+  } 
+
+  button{
+    border-radius: 6px;
+    border: 1px solid #b2b8ad;   
+    outline: none; 
+  } 
+
+  button:active {    
+    border: none;
+  }
 </style>
