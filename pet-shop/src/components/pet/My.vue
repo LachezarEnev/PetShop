@@ -54,7 +54,7 @@
 
 <script>
 import { http } from '../../services/httpClient';
-import { toastSuccess } from '../../services/toasted';
+import { toastSuccess } from '../../utils/toasted';
 
 export default {
     data()  {

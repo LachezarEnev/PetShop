@@ -84,9 +84,9 @@ validations: {
       this[logoutSuccess]();
       this.$router.push('/login');
     },
-    searchHandler(){         
-      this.$router.push({name: 'search', params: { search: this.search }})
-    }
+    searchHandler(){      
+      this.$router.push({name: 'search', params: { search: this.search }})          
+    }    
   },
   filters: {
   capitalize: function (value) {

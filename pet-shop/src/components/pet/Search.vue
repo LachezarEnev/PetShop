@@ -1,5 +1,5 @@
 <template>
-<div class="container">    
+<div class="container">      
     <div class="row">    
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
             <div class="card h-100 mt-2">
@@ -46,27 +46,30 @@ export default {
       data()  {
     return { 
       allPets: {},    
-      search: this.$route.params.search                       
+      search: this.$route.params.search                            
     };
 },
   created() {    
       http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
       this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
       || p.category.includes(this.search.toLowerCase())
-      || this.search.toLowerCase().includes(p.category));    
+      || this.search.toLowerCase().includes(p.category)); 
+      if(this.allPets.length === 0) {
+        this.$router.push('/noResult')
+      }   
       })       
   },
-//   updated() {
-//       http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-//       this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
-//       || p.category.includes(this.search.toLowerCase())
-//       || this.search.toLowerCase().includes(p.category)); 
-//       console.log(this.search)   
-//       }) 
-//   },
- methods: {
+  watch:{
+      allPets: function(){      
+      },
+
+      search: function(){
+          console.log(this.search)
+      }
+  },
+ methods: {     
     isPublisher(username) {
-      if(username === localStorage.getItem('username')){
+      if(username === localStorage.getItem('username')){         
         return true;
       }
     },    
@@ -76,10 +79,17 @@ export default {
             if(pet.data.username !== localStorage.getItem("username")){
             pet.data.likes++;                    
             } 
-            http.put(`pets/${id}`, pet.data)                                                     
+            http.put(`pets/${id}`, pet.data)
+            .then(() => {
+                http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
+                this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
+                || p.category.includes(this.search.toLowerCase())
+                || this.search.toLowerCase().includes(p.category));    
+                }) 
+            })                                                     
         })          
-        }                    
-    } 
+        }                 
+    }       
 }
 </script>
 

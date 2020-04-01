@@ -86,7 +86,7 @@
 import { validationMixin } from 'vuelidate';
 import { required, minValue } from 'vuelidate/lib/validators';
 import { http } from '../../services/httpClient';
-import { toastSuccess } from '../../services/toasted';
+import { toastSuccess } from '../../utils/toasted';
 
 export default {   
     mixins: [validationMixin],
