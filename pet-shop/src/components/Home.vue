@@ -75,16 +75,18 @@ import { http } from '../services/httpClient';
 export default {     
 data()  {
     return {
-      allPets: {},                                           
+      allPets: {},                                                 
     };
 },
  computed: {
     ...mapGetters(['isAuth'])      
   },
-  created() {    
+  created() { 
+    if(localStorage.getItem('authtoken')) {  
       http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
       this.allPets = data.data                 
-      })           
+      })   
+    }        
   },
   watch: {
       allPets: function() {         
@@ -137,4 +139,14 @@ data()  {
   button:active {    
     border: none;
   }
+
+  li:hover { 
+    color:peru; 
+    border-bottom: 1.2px solid peru;
+    cursor: pointer;
+}
+img:hover {    
+    cursor: pointer;
+}
+
 </style>

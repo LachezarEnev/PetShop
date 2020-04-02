@@ -93,4 +93,8 @@ button{
   button:active {    
     border: none;
   }
+
+  img:hover {    
+    cursor: pointer;
+}
 </style>

@@ -89,4 +89,7 @@ export default {
 </script>
 
 <style scoped>
+img:hover {    
+    cursor: pointer;
+}
 </style>

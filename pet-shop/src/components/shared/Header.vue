@@ -85,7 +85,8 @@ validations: {
       this.$router.push('/login');
     },
     searchHandler(){      
-      this.$router.push({name: 'search', params: { search: this.search }})          
+      this.$router.push({name: 'search', params: { search: this.search }}) 
+      this.search = '';         
     }    
   },
   filters: {
@@ -103,4 +104,8 @@ validations: {
 .dropdown:hover>.dropdown-menu {
     display: block;
   }
+  
+a:hover {    
+    cursor: pointer;
+}
 </style>

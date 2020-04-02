@@ -123,4 +123,14 @@ button{
   button:active {    
     border: none;
   }
+
+   li:hover { 
+    color:peru; 
+    border-bottom: 1.2px solid peru;
+    cursor: pointer;
+}
+
+img:hover {    
+    cursor: pointer;
+}
 </style>

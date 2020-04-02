@@ -46,10 +46,15 @@ export default {
       data()  {
     return { 
       allPets: {},    
-      search: this.$route.params.search                            
+      search: this.$route.params.search,  
+      currentSearch: sessionStorage.getItem('search')                            
     };
 },
-  created() {    
+  created() { 
+       if (!this.search)  {
+        this.search = this.currentSearch
+        }  
+      sessionStorage.setItem('search', this.search)   
       http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
       this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
       || p.category.includes(this.search.toLowerCase())
@@ -57,7 +62,7 @@ export default {
       if(this.allPets.length === 0) {
         this.$router.push('/noResult')
       }   
-      })       
+      })               
   },
   watch:{
       allPets: function(){      
@@ -103,4 +108,8 @@ button{
   button:active {    
     border: none;
   }
+
+  img:hover {    
+    cursor: pointer;
+}
 </style>
