@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import { http } from '../../services/httpClient';
 import { toastSuccess } from '../../utils/toasted';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
     data()  {
@@ -64,9 +64,7 @@ export default {
     };
 }, 
   created() {    
-      http.get(`pets/?query={"username": "${this.username}"}&sort={"likes": -1}`).then((data) => {
-      this.myPets = data.data      
-      })     
+      this.getMyPets(this.username)    
   },
   watch: {
       myPets: function() {  
@@ -75,16 +73,15 @@ export default {
   methods: {
        deletePet(id, title){
         if (confirm("Are you sure you want to delete "+title)) {
-      http.delete(`pets/${id}`)
+      this.deletePetById(id)
       .then (() => {
             toastSuccess('Pet deleted successfully!')            
-            http.get(`pets/?query={"username": "${this.username}"}&sort={"likes": -1}`).then((data) => {
-            this.myPets = data.data      
-            }) 
+            this.getMyPets(this.username)        
         });
         }
     }
-  }
+  },
+  mixins: [petsMixin] 
 }
 </script>
 

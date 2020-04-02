@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { http } from '../../services/httpClient';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
       data()  {
@@ -55,21 +55,17 @@ export default {
         this.search = this.currentSearch
         }  
       sessionStorage.setItem('search', this.search)   
-      http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
-      || p.category.includes(this.search.toLowerCase())
-      || this.search.toLowerCase().includes(p.category)); 
-      if(this.allPets.length === 0) {
+      this.getSearchedPets(this.search).then(() => {
+        if(this.allPets.length === 0) {
         this.$router.push('/noResult')
-      }   
-      })               
+        } 
+      })                      
   },
   watch:{
       allPets: function(){      
       },
 
-      search: function(){
-          console.log(this.search)
+      search: function(){          
       }
   },
  methods: {     
@@ -79,22 +75,12 @@ export default {
       }
     },    
      like(id){         
-         http.get(`pets/${id}`)
-         .then((pet) => {
-            if(pet.data.username !== localStorage.getItem("username")){
-            pet.data.likes++;                    
-            } 
-            http.put(`pets/${id}`, pet.data)
-            .then(() => {
-                http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-                this.allPets = data.data.filter(p => p.title.toLowerCase().includes(this.search.toLowerCase()) 
-                || p.category.includes(this.search.toLowerCase())
-                || this.search.toLowerCase().includes(p.category));    
-                }) 
-            })                                                     
+         this.likePet(id).then(() => {
+          this.getSearchedPets(this.search);    
         })          
         }                 
-    }       
+    },
+    mixins: [petsMixin]        
 }
 </script>
 

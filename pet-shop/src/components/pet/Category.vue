@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { http } from '../../services/httpClient';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
 data()  {
@@ -69,11 +69,9 @@ data()  {
 created() { 
       if (!this.category)  {
         this.category = this.currentCategory
-        }  
-      http.get(`pets/?query={"category": "${this.category}"}&sort={"likes": -1}`).then((data) => {
-      this.allPets = data.data 
-      sessionStorage.setItem('category', this.category)                   
-      })                  
+        }
+     sessionStorage.setItem('category', this.category)  
+     this.getCategoryPets(this.category)                      
   },
   watch: {
       allPets: function() {         
@@ -86,29 +84,17 @@ created() {
         }
     },
     getCategory(input) {
-        http.get(`pets/?query={"category": "${input}"}&sort={"likes": -1}`).then((data) => {
-        this.allPets = data.data 
         this.category = input; 
-        sessionStorage.setItem('category', this.category)                        
-      })
+        sessionStorage.setItem('category', this.category)
+        this.getCategoryPets(input)   
     },
-      like(id){               
-         http.get(`pets/${id}`)
-         .then((pet) => {
-            if(pet.data.username !== localStorage.getItem("username")){           
-            pet.data.likes++; 
-                                                                                            
-            } 
-            http.put(`pets/${id}`, pet.data)
-            .then(() => {
-                http.get(`pets/?query={"category": "${this.category}"}&sort={"likes": -1}`).then((data) => {
-                this.allPets = data.data                 
-                })  
-            })                                                                                 
-        })          
+    like(id){               
+        this.likePet(id).then(() => {
+        this.getCategoryPets(this.category);
+        })           
     }, 
-  }
-    
+  },
+mixins: [petsMixin] 
 }
 
 </script>

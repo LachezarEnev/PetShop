@@ -86,11 +86,11 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, minValue } from 'vuelidate/lib/validators';
-import { http } from '../../services/httpClient';
 import { toastSuccess } from '../../utils/toasted';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
-    mixins: [validationMixin],
+    mixins: [validationMixin, petsMixin],
 data()  {
     return {
       title: '',
@@ -150,14 +150,13 @@ methods: {
         username, 
         likes}
   
-        http.post('pets', body)        
+        this.createPet(body)       
         .then (() => {
             toastSuccess('Pet created successfully!')
             this.$router.push('/my')
         });       
     }    
-}
-
+},
 }
 </script>
 

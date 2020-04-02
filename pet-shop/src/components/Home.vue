@@ -70,7 +70,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { http } from '../services/httpClient';
+import  petsMixin  from '../mixins/pet-mixin.js';
 
 export default {     
 data()  {
@@ -82,10 +82,8 @@ data()  {
     ...mapGetters(['isAuth'])      
   },
   created() { 
-    if(localStorage.getItem('authtoken')) {  
-      http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data                 
-      })   
+    if(localStorage.getItem('authtoken')) {   
+      this.getAllPets();  
     }        
   },
   watch: {
@@ -98,25 +96,16 @@ data()  {
         return true;
       }
     },    
-     like(id){               
-         http.get(`pets/${id}`)
-         .then((pet) => {
-            if(pet.data.username !== localStorage.getItem("username")){           
-            pet.data.likes++; 
-                                                                                            
-            } 
-            http.put(`pets/${id}`, pet.data)
-            .then(() => {
-                http.get('pets/?query={}&sort={"likes": -1}').then((data) => {
-                this.allPets = data.data                 
-                })  
-            })                                                                                 
-        })          
+     like(id){   
+        this.likePet(id).then(() => {
+          this.getAllPets();    
+        })           
     }, 
     category(category){
       this.$router.push({name: 'category', params: { category: category }})  
     }                       
-}  
+},
+mixins: [petsMixin] 
 }
 </script>
 

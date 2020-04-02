@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { http } from '../../services/httpClient';
 import { toastSuccess } from '../../utils/toasted';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
     data()  {
@@ -52,9 +52,7 @@ export default {
     };
 },
  created() {    
-      http.get(`pets/${this.petId}`).then((data) => {
-      this.pet = data.data       
-      })           
+      this.getPetById(this.petId);          
   },
 methods: {
     isPublisher(username) {
@@ -64,7 +62,7 @@ methods: {
     },   
     deletePet(id, title){
         if (confirm("Are you sure you want to delete "+title)) {
-      http.delete(`pets/${this.petId}`)
+        this.deletePetById(id)
       .then (() => {
             toastSuccess('Pet deleted successfully!')
             this.$router.push('/my')
@@ -72,6 +70,7 @@ methods: {
         }
     }
 },
+mixins: [petsMixin] 
 }
 </script>
 

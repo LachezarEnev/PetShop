@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { http } from '../../services/httpClient';
+import  petsMixin  from '../../mixins/pet-mixin.js';
 
 export default {
 data()  {
@@ -50,10 +50,8 @@ data()  {
       allPets: {},          
     };
 }, 
-  created() {    
-      http.get('pets/?query={"option":"adoption"}&sort={"likes": -1}').then((data) => {
-      this.allPets = data.data      
-      })     
+  created() { 
+      this.getAdoptPets()   
   },
   watch: {
       allPets: function() {         
@@ -65,21 +63,13 @@ data()  {
         return true;
       }
     },
-      like(id){         
-         http.get(`pets/${id}`)
-         .then((pet) => {
-            if(pet.data.username !== localStorage.getItem("username")){
-            pet.data.likes++;                    
-            } 
-            http.put(`pets/${id}`, pet.data)
-            .then(() => {
-                http.get('pets/?query={"option":"adoption"}&sort={"likes": -1}').then((data) => {
-                this.allPets = data.data                   
-                })  
-            })                                                       
-        })          
-    } 
-  }
+      like(id){ 
+          this.likePet(id).then(() => {
+          this.getAdoptPets();
+          })   
+      }  
+  },
+  mixins: [petsMixin] 
 }
 </script>
 

@@ -37,8 +37,7 @@ import { mapActions } from 'vuex';
 export default {
 mixins: [validationMixin],
 data()  {
-    return {  
-      loading: false,  
+    return {     
       username: '',
       password: '',
     };
@@ -53,14 +52,12 @@ validations: {
 },
 methods: {
   ...mapActions([loginSuccess]),
-    async loginHandler() {
-       this.loading = true;
+    async loginHandler() {       
       try {       
         await this[loginSuccess]({
           username: this.username,
           password: this.password
-        });   
-        this.loading = false;    
+        });         
         this.$router.push('/');
       } catch (err) {        
         this.$refs.loginForm.reset();
