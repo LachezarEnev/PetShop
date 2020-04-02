@@ -62,13 +62,18 @@ export default {
 data()  {
     return { 
       allPets: {},    
-      category: this.$route.params.category,                                
+      category: this.$route.params.category,
+      currentCategory: sessionStorage.getItem('category')                                    
     };
 },
-created() {    
+created() { 
+      if (!this.category)  {
+        this.category = this.currentCategory
+        }  
       http.get(`pets/?query={"category": "${this.category}"}&sort={"likes": -1}`).then((data) => {
-      this.allPets = data.data                    
-      })           
+      this.allPets = data.data 
+      sessionStorage.setItem('category', this.category)                   
+      })                  
   },
   watch: {
       allPets: function() {         
@@ -83,7 +88,8 @@ created() {
     getCategory(input) {
         http.get(`pets/?query={"category": "${input}"}&sort={"likes": -1}`).then((data) => {
         this.allPets = data.data 
-        this.category = input;                      
+        this.category = input; 
+        sessionStorage.setItem('category', this.category)                        
       })
     },
       like(id){               
@@ -104,6 +110,7 @@ created() {
   }
     
 }
+
 </script>
 
 <style scoped>
