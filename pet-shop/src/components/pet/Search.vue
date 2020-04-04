@@ -60,13 +60,20 @@ export default {
         this.$router.push('/noResult')
         } 
       })                      
-  },
+  },  
   watch:{
       allPets: function(){      
       },
-
-      search: function(){          
-      }
+      search: function(){                
+      },
+      '$route.params.search'(value) {
+        this.search = value;        
+        this.getSearchedPets(value).then(() => {
+          if(this.allPets.length === 0) {
+          this.$router.push('/noResult')
+        }                    
+      })
+    },       
   },
  methods: {     
     isPublisher(username) {
@@ -76,7 +83,7 @@ export default {
     },    
      like(id){         
          this.likePet(id).then(() => {
-          this.getSearchedPets(this.search);    
+          this.getSearchedPets(this.search);           
         })          
         }                 
     },

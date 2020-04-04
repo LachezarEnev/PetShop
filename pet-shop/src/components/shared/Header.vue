@@ -85,7 +85,11 @@ validations: {
       this.$router.push('/login');
     },
     searchHandler(){      
-      this.$router.push({name: 'search', params: { search: this.search }}) 
+      this.$router.push({name: 'search', params: { search: this.search }}).catch(err => {      
+        if (err.name != "NavigationDuplicated") {       
+        console.error(err);
+        }
+      })             
       this.search = '';         
     }    
   },

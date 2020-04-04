@@ -43,8 +43,8 @@ export default [
             component: My
           },
           {
-            path: "/search",
-            name: 'search', 
+            path: "/search/:search",
+            name: 'search',            
             component: Search
           },
           {
