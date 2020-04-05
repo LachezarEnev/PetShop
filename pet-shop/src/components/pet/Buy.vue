@@ -1,5 +1,8 @@
 <template>
-<div v-if="allPets">
+<div>
+    <div v-if="allPets.length === 0 && isLoaded">
+        <h1 class="text-center" style="color: peru;">There are no pets for buying yet!</h1>
+    </div>  
 <div class="container">    
     <div class="row">    
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
@@ -47,11 +50,14 @@ import  petsMixin  from '../../mixins/pet-mixin.js';
 export default {
 data()  {
     return {
-      allPets: {},          
+      allPets: {},
+      isLoaded: false,         
     };
 }, 
   created() { 
-      this.getBuyPets();     
+      this.getBuyPets().then(() => {
+         this.isLoaded = true
+    })     
   },
   watch: {
       allPets: function() {         

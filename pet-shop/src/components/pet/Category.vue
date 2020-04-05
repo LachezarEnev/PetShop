@@ -10,8 +10,11 @@
                 <li><a class="nav-link" style="color: peru;" @click="getCategory('other')"><i class="fas fa-paw"></i> Other</a></li>             
             </ul>
         </div>
-    </nav>      
-<div v-if="allPets" >
+    </nav> 
+      <div v-if="allPets.length === 0 && isLoaded">
+        <h1 class="text-center mt-3" style="color: peru;">There are no pets in this category yet!</h1>
+    </div>       
+<div >
 <div class="container">    
     <div class="row">    
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
@@ -50,7 +53,7 @@
         </div>
     </div>    
   </div> 
-  </div>  
+  </div>    
  </div> 
  
 </template>
@@ -63,7 +66,8 @@ data()  {
     return { 
       allPets: {},    
       category: this.$route.params.category,
-      currentCategory: sessionStorage.getItem('category')                                    
+      currentCategory: sessionStorage.getItem('category'),
+      isLoaded: false,                                    
     };
 },
 created() { 
@@ -71,11 +75,13 @@ created() {
         this.category = this.currentCategory
         }
      sessionStorage.setItem('category', this.category)  
-     this.getCategoryPets(this.category)                      
+     this.getCategoryPets(this.category).then(() => {
+        this.isLoaded = true
+     })                          
   },
   watch: {
       allPets: function() {         
-        }        
+        }       
     }, 
   methods: {
     isPublisher(username) {

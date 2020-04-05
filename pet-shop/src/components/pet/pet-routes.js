@@ -1,14 +1,5 @@
 import { authGuard } from '../../utils/guards';
 import Pet from './Pet.vue';
-import Create from './Create.vue';
-import Buy from './Buy.vue';
-import Adopt from './Adopt.vue';
-import Details from './Details.vue';
-import Edit from './Edit.vue';
-import My from './My.vue';
-import Search from './Search.vue';
-import NoResult from './NoResult.vue';
-import Category from './Category.vue';
 
 export default [
     {
@@ -18,43 +9,43 @@ export default [
       children: [
         {
             path: "/create", 
-            component: Create   
+            component: () => import('./Create.vue')  
           },
           {
             path: "/buy", 
-            component: Buy
+            component: () => import('./Buy.vue') 
           },
           {
             path: "/adopt", 
-            component: Adopt
+            component: () => import('./Adopt.vue') 
           },
           {
             path: "/details/:id", 
             name: 'details', 
-            component: Details
+            component: () => import('./Details.vue') 
           },
           {
             path: "/edit/:id",
             name: 'edit', 
-            component: Edit
+            component: () => import('./Edit.vue') 
           },
           {
             path: "/my", 
-            component: My
+            component: () => import('./My.vue') 
           },
           {
             path: "/search/:search",
             name: 'search',            
-            component: Search
+            component: () => import('./Search.vue') 
           },
           {
             path: "/noResult", 
-            component: NoResult
+            component: () => import('./NoResult.vue') 
           },
           {
             path: "/category",
             name: 'category', 
-            component: Category
+            component: () => import('./Category.vue') 
           },           
       ],
       beforeEnter: authGuard     

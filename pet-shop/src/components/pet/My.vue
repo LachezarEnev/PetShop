@@ -1,7 +1,7 @@
 <template>
-<div>
+<div>   
 <div class="h2 text-center font-weight-bold pt-3 pb-3" style="color: peru;">My Pets</div>
-<div v-if="myPets">    
+<div>    
     <div class="container"> 
         <table class="table">
             <thead>
@@ -15,6 +15,9 @@
                 </tr>
             </thead>
             <tbody>
+                 <div v-if="myPets.length === 0 && isLoaded">
+        <h1 class="text-center mt-3" style="color: peru;">You don't have any pets yet!</h1>
+    </div> 
                 <div v-for="pet in myPets" :key="pet._id">
                 <tr class="row">
                     <td class="col-1 d-flex justify-content-center">                       
@@ -60,11 +63,14 @@ export default {
     data()  {
     return {
       myPets: {},
-      username: localStorage.getItem('username'),                      
+      username: localStorage.getItem('username'),
+      isLoaded: false,                       
     };
 }, 
   created() {    
-      this.getMyPets(this.username)    
+      this.getMyPets(this.username).then(() => {
+        this.isLoaded = true
+     })    
   },
   watch: {
       myPets: function() {  

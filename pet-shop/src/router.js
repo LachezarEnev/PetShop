@@ -10,6 +10,10 @@ import { globalAuthGuard } from './utils/guards';
 const appRoutes = [
   {
     path: "/", 
+    redirect: "/home"
+  }, 
+  {
+    path: "/home", 
     component: Home
   }, 
   {

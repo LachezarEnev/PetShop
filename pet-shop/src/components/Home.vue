@@ -11,8 +11,11 @@
                 <li><a class="nav-link" style="color: peru;" @click="category('other')"><i class="fas fa-paw"></i> Other</a></li>             
             </ul>
         </div>
-    </nav>    
-<div v-if="allPets" >
+    </nav>
+    <div v-if="allPets.length === 0 && isLoaded">
+        <h1 class="text-center mt-3" style="color: peru;">There are no pets yet!</h1>
+    </div>      
+<div>
 <div class="container">    
     <div class="row">    
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-3" v-for="pet in allPets" :key="pet._id">
@@ -75,7 +78,8 @@ import  petsMixin  from '../mixins/pet-mixin.js';
 export default {     
 data()  {
     return {
-      allPets: {},                                                 
+      allPets: {},
+      isLoaded: false,                                                   
     };
 },
  computed: {
@@ -83,7 +87,9 @@ data()  {
   },
   created() { 
     if(localStorage.getItem('authtoken')) {   
-      this.getAllPets();  
+      this.getAllPets().then(() => {
+        this.isLoaded = true   
+      })     
     }        
   },
   watch: {

@@ -1,6 +1,4 @@
 import { innerGuard } from '../../utils/guards';
-import Login from './Login.vue';
-import Register from './Register.vue';
 import Auth from './Auth.vue';
 
 export default [
@@ -11,11 +9,11 @@ export default [
       children: [
         {
             path: "/login",
-            component: Login    
+            component: () => import('./Login.vue')   
           },
           {
             path: "/register", 
-            component: Register   
+            component: () => import('./Register.vue')   
           },
       ],
       beforeEnter: innerGuard
