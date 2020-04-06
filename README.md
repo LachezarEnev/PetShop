@@ -2,7 +2,8 @@
 PetShop is a specialized web store where every registered user can publish an announcement for pets (for sale or for adoption).
 The app uses for front-end Vue.js, back-end serverless platform Kinvey.
 
-The app has three main component folders.
+The app has three main component folders:
+
 	1.	Shared – contains Header, Footer and Not-found components.
 
 	2.	Auth – contains Login and Register components.
@@ -27,7 +28,8 @@ The app has three main component folders.
 
 		•	NoResult component – this view is displayed when the search returns no pets.
 		
-The app navigation is handled by Lazy Loading Routes. The Router contains three main routes.
+The app navigation is handled by Lazy Loading Routes. The Router contains three main routes:
+
 	1.	App-routes -  navigating to the home page and not-found page.
 
 	2.	Auth-routes – navigating to login and register pages.
