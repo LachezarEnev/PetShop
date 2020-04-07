@@ -1,5 +1,27 @@
 # pet-shop
 PetShop is a specialized web store where every registered user can publish an announcement for pets (for sale or for adoption).
+
+## Public part
+Anonymus user
+
+	•	On the home page login and register links are provided.
+
+	•	User has access to register page.
+
+	•	User has access to login page.
+
+## Private part
+
+Authorized user
+
+	•	User can see all pets for sale and for adoption
+
+	•	User can create pet notice.
+
+	•	User has access to his own pet notices.
+
+## Architecture
+
 The app uses for front-end Vue.js, back-end serverless platform Kinvey.
 
 The app has three main component folders:
